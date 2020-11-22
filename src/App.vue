@@ -13,10 +13,15 @@
 </template>
 
 <script>
-import { useStore } from "@/store";
-import { createModelFormStore } from "@/store/model";
 import PrettyPre from "@/components/PrettyPre.vue";
 import Navbar from "@/components/Navbar.vue";
+import { useStore } from "@/store";
+import { createFormStore } from "@/store/form";
+import { 
+    CHARACTER_FORM_SCHEMA,
+    LOCATION_FORM_SCHEMA,
+    EPISODE_FORM_SCHEMA,
+} from "@/config/schemas";
 
 export default {
     components: {
@@ -28,15 +33,9 @@ export default {
          * Register multiple form stores, one for each model.
          */
         const { registerStoreModule } = useStore();
-        registerStoreModule("character", createModelFormStore({
-			name: "",
-			status: "",
-			species: "",
-			type: "",
-			gender: "",
-		}));
-        registerStoreModule("location", createModelFormStore());
-        registerStoreModule("episode", createModelFormStore());
+        registerStoreModule("character", createFormStore(CHARACTER_FORM_SCHEMA));
+        registerStoreModule("location", createFormStore(LOCATION_FORM_SCHEMA));
+        registerStoreModule("episode", createFormStore(EPISODE_FORM_SCHEMA));
 
         const store = useStore();
 

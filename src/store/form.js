@@ -1,7 +1,7 @@
 import { set, del, reactive } from "@vue/composition-api"
 import { v4 as uuid } from 'uuid'
 
-export const createFormStore = () => {
+export const createFormStore = (fieldSchema = {}) => {
 
     const byId = reactive({})
 
@@ -9,12 +9,12 @@ export const createFormStore = () => {
      * Method for creating a temp 
      * character for our forms.
      */
-    const newForm = (fields = undefined) => {
+    const newForm = () => {
 
-        if (!fields) throw new Error('`fields` must be defined when creating a new moddel')
+        if (!fieldSchema) throw new Error('`fieldSchema` must be defined when creating a new moddel')
 
         const tempId = `_${uuid()}`
-        set(byId, tempId, { ...fields, id: tempId })
+        set(byId, tempId, { ...fieldSchema, id: tempId })
 
         return tempId
     }

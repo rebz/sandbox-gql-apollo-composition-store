@@ -3,13 +3,11 @@ import { computed, watch, ref } from '@vue/composition-api'
 
 export const useForm = (model, id = undefined) => {
 
-    // const uid = uuid()
-
     const { store } = useStore()
     if (!store?.[model]) throw new Error(`store model '${model}' was not found`)
 
     // Use ID or create an empty model and return a tempId
-    const modelId = id || store?.[model]?.newModel()
+    const modelId = id || store?.[model]?.newForm()
 
     // Method for removing the data from the store
     const cancelForm = () => store?.[model]?.removeByIds([modelId])

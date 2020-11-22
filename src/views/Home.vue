@@ -18,9 +18,7 @@
 </template>
 
 <script>
-import { ref, reactive } from '@vue/composition-api'
-import { useQuery, useResult } from '@vue/apollo-composable'
-import { GET_CHARACTERS } from '@/gql/queries/characters'
+import { useCharacters } from '@/composables/character'
 import Character from '@/components/Character.vue'
 
 export default {
@@ -29,11 +27,10 @@ export default {
   },
   setup() {
 
-    const { loading, error, result } = useQuery(GET_CHARACTERS)
-    const characters = useResult(result, [], (data) => data.characters.results)
-
+    const { loading, characters } = useCharacters()
     
     return {
+      loading,
       characters
     }
   }

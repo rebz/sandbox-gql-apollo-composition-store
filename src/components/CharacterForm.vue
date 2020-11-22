@@ -1,6 +1,10 @@
 <template>
     <form v-if="form">
 
+        <span class="badge" v-if="isCreating">
+            Creating
+        </span>
+
         <div class="form-input">
             <label>
                 Name
@@ -79,7 +83,11 @@
 <style lang="scss" scoped>
     form {
         max-width: 320px;
-        margin: 0 auto;   
+        position: relative;
+        padding: 12px;
+        border: solid 1px grey;
+        margin: 12px;
+
     }
     .form-input {
         margin: 12px 0;
@@ -95,5 +103,18 @@
         width: 100%;
         padding: 6px 12px;
         height: 48px;
+    }
+    .badge {
+        position: absolute;
+        top: -12px;
+        right: -8px;
+        border: solid 1px grey;
+        background: rgb(218, 225, 235);
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 4px;
+        display: inline-flex;
+        z-index: 1;
+        padding: 4px 8px;
     }
 </style>

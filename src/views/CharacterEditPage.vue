@@ -2,7 +2,7 @@
     <div>
         <character :character="character" />
 
-        <character-form :id="characterId" />
+        <character-form :id="characterId" style="margin: 32px auto 0;" />
 
         <div class="buttons">
             <router-link class="button button-grey" :to="{

@@ -27,10 +27,4 @@
         display: flex;
         justify-content: center;
     }
-
-    .box {
-        padding: 12px;
-        border: solid 1px grey;
-        margin: 12px;
-    }
 </style>

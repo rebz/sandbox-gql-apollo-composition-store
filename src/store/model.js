@@ -1,38 +1,26 @@
-import { set, del, reactive } from "@vue/composition-api"
-import { v4 as uuid } from 'uuid'
+import { createFormStore } from '@/store/form'
+// import { set, del, watch } from '@vue/composition-api'
 
-export const createModelStore = () => {
+export const createModelFormStore = (
+    formSchema = {}
+) => {
 
-    const byId = reactive({})
-
-    /**
-     * Method for creating a temp 
-     * character for our forms.
-     */
-    const newModel = (fields = undefined) => {
-
-        if (!fields) throw new Error('`fields` must be defined when creating a new moddel')
-
-        const tempId = uuid()
-        set(byId, tempId, fields)
-
-        return tempId
-    }
+    const {
+        byId, 
+        setById,
+        newForm,
+        removeByIds
+    } = createFormStore()
 
     /**
-     * Provide an array of IDs to 
-     * have them removed from 
-     * the `byId` state.
+     * Create a blank model; the form schema.
      */
-    const removeByIds = (ids = []) => {
-        for (const id of ids) {
-            del(byId, id)
-        }
-    }
+    const newModel = () => newForm(formSchema)
 
     return {
         byId,
+        setById,
         newModel,
-        removeByIds
+        removeByIds,
     }
 }

@@ -1,39 +1,39 @@
 <template>
-    <form v-if="character">
+    <form v-if="form">
 
         <div class="form-input">
             <label>
                 Name
             </label>
-            <input type="text" v-model="character.name" />
+            <input type="text" v-model="form.name" />
         </div>
 
         <div class="form-input">
             <label>
                 Status
             </label>
-            <input type="text" v-model="character.status" />
+            <input type="text" v-model="form.status" />
         </div>
 
         <div class="form-input">
             <label>
                 Species
             </label>
-            <input type="text" v-model="character.species" />
+            <input type="text" v-model="form.species" />
         </div>
 
         <div class="form-input">
             <label>
                 Type
             </label>
-            <input type="text" v-model="character.type" />
+            <input type="text" v-model="form.type" />
         </div>
 
         <div class="form-input">
             <label>
                 Gender
             </label>
-            <input type="text" v-model="character.gender" />
+            <input type="text" v-model="form.gender" />
         </div>
 
     </form>
@@ -41,24 +41,37 @@
 
 <script>
     import { useForm } from '@/composables/forms'
-    import { onUnmounted } from '@vue/composition-api';
+    import { watch, onUnmounted } from '@vue/composition-api';
+    import { useCharacterById } from '@/composables/character';
 
     export default {
         props: ['id'],
         setup(props) {
 
             const { 
-                character,
-                cancelForm
+                
+                form,
+                setForm,
+                isCreating,
+                cancelForm,
             } = useForm('character', props?.id)
+
+            const { 
+                character,
+                loading,
+            } = useCharacterById(props?.id)
+
+            watch(character, val => setForm(val.id, val), { immediate: true, deep: true })
 
             onUnmounted(() => {
                 cancelForm();
             })
 
             return {
+                form,
+                isCreating,
                 character,
-                cancelForm
+                loading
             }
         },
     }

@@ -9,6 +9,9 @@
         <div class="box">
             <character-form id="2" />
         </div>
+        <div class="box">
+            <character-form />
+        </div>
     </div>
 </template>
 

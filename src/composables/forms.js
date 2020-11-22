@@ -1,7 +1,9 @@
 import { useStore } from '@/store'
-import { reactive, watch, ref } from '@vue/composition-api'
+import { computed, watch, ref } from '@vue/composition-api'
 
 export const useForm = (model, id = undefined) => {
+
+    // const uid = uuid()
 
     const { store } = useStore()
     if (!store?.[model]) throw new Error(`store model '${model}' was not found`)
@@ -9,24 +11,33 @@ export const useForm = (model, id = undefined) => {
     // Use ID or create an empty model and return a tempId
     const modelId = id || store?.[model]?.newModel()
 
-    // check if data exists for the given id
-    if (!store?.[model]?.byId?.[modelId]) store?.[model]?.setById(id)
-    
     // Method for removing the data from the store
     const cancelForm = () => store?.[model]?.removeByIds([modelId])
 
     // a reference to bind UI components to
-    const modelRef = ref({})
+    const form = ref({})
 
     // when the data loads update the `modelRef`
     watch(() => store?.[model]?.byId?.[modelId], val => {
         if (!val) return
-        console.info('useForm', model, id, modelId)
-        modelRef.value = val
-    }, { immediate: true })
+        form.value = val
+    }, { immediate: true, deep: true })
+
+    /**
+     * 
+     */
+    const setForm = store?.[model]?.setById
+
+    /**
+     * Determine if the form model is 
+     * being updated or created.
+     */
+    const isCreating = computed(() => form.value?.id?.[0] === '_')
 
     return {
-        [model]: modelRef,
-        cancelForm
+        form,
+        setForm,
+        isCreating,
+        cancelForm,
     }
 }

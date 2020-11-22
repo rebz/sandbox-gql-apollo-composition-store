@@ -1,0 +1,32 @@
+{
+  "name": "gql-rick-and-morty",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@vue/apollo-composable": "^4.0.0-alpha.12",
+    "@vue/composition-api": "^1.0.0-beta.19",
+    "uuid": "^8.3.1",
+    "vue": "^2.6.11",
+    "vue-apollo": "^3.0.0-beta.11",
+    "vue-router": "^3.2.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "graphql-tag": "^2.9.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "vue-cli-plugin-apollo": "~0.22.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

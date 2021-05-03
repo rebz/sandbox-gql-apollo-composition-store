@@ -1,19 +1,25 @@
 <template>
-  <div class="grid">
-    <router-link 
-      v-for="(char, index) in characters"
-      :key="`link-character-${char.id}`"
-      :to="{
-        name: 'character.view',
-        params: {
-          id: char.id
-        }
-      }">
-      <character 
-        :key="`character-${char.id}`"
-        :character="char"
-      />
-    </router-link>
+  <div class="container">
+    <button @click.prevent="clearCacheAndRefetch">
+      Refetch
+    </button>
+    Loading: {{ loading }}
+    <div class="grid">
+      <router-link
+        v-for="(char, index) in characters"
+        :key="`link-character-${char.id}`"
+        :to="{
+          name: 'character.view',
+          params: {
+            id: char.id
+          }
+        }">
+        <character
+          :key="`character-${char.id}`"
+          :character="char"
+        />
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -27,9 +33,11 @@ export default {
   },
   setup() {
 
-    const { loading, characters } = useCharacters()
+    const { clearCacheAndRefetch, refetch, loading, characters } = useCharacters()
     
     return {
+      clearCacheAndRefetch,
+      refetch, 
       loading,
       characters
     }
@@ -38,6 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
